@@ -26,33 +26,33 @@ Revolver is compatible with jQuery and Zepto, but requires Zepto's data module f
 
 ```js
 var options = {
-  # The transition speed if the user drags the panels
+  // The transition speed if the user drags the panels
   draggingMS: 300,
 
-  # The transition speed if the user selects a pagination item
+  // The transition speed if the user selects a pagination item
   controlsMS: 800,
 
-  # False if no autoplay, or a duration in milliseconds
+  // False if no autoplay, or a duration in milliseconds
   autoplayMS: 5000,
 
   returnToStart: true
   returnToStartMS: 1000,
 
-  # Whether or not hovering will cause the autoplayMS to pause
+  // Whether or not hovering will cause the autoplayMS to pause
   stopOnHover: true,
 
-  # Should we have previous and next buttons, and what should they say?
+  // Should we have previous and next buttons, and what should they say?
   navigation: ["&larr;", "&rarr;"],
 
-  # Should we have pagination, and should it include numbers in the html?
+  // Should we have pagination, and should it include numbers in the html?
   pagination: true,
   paginationNumbers: false,
 
-  # The number of items to show within the revolver
+  // The number of items to show within the revolver
   items: 5,
 
-  # An array of [pixel width, visible items] or false if
-  # we shouldn't be responsive
+  // An array of [pixel width, visible items] or false if
+  // we shouldn't be responsive
   breakpoints: [
     [1199, 4],
     [ 979, 3],
