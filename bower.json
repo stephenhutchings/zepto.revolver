@@ -1,0 +1,30 @@
+{
+  "name": "zepto.revolver",
+  "version": "0.0.0",
+  "homepage": "https://github.com/stephenhutchings/zepto.revolver",
+  "authors": [
+    "stephenhutchings <stephen@creativelicence.com.au>"
+  ],
+  "description": "A do-it-all carousel that's simple, flexible and lightweight",
+  "main": [
+    "build/zepto.revolver.js",
+    "build/zepto.revolver.css"
+  ],
+  "keywords": [
+    "carousel",
+    "slider",
+    "jquery",
+    "zepto",
+    "plugin",
+    "lightwieght"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "Cakefile",
+    "package.json",
+    "src"
+  ]
+}

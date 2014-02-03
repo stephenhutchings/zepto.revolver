@@ -1,0 +1,84 @@
+@charset "utf-8"
+@import "compass"
+
+// clearfix
+.revolver
+  display: none
+  position: relative
+  width: 100%
+  overflow: hidden
+
+  .rv-wrapper
+    display: none
+    position: relative
+
+    &:after
+      content: "."
+      display: block
+      clear: both
+      visibility: hidden
+      line-height: 0
+      height: 0
+
+  .rv-item
+    float: left
+
+  .rv-wrapper, .rv-item
+    -webkit-backface-visibility: hidden
+    -moz-backface-visibility: hidden
+    -ms-backface-visibility: hidden
+
+  .rv-page
+    cursor: pointer
+
+  // mouse grab icon
+  .grabbing
+    cursor: pointer
+    +experimental(user-select, none)
+
+  // Pagination
+  .rv-controls
+    +experimental(user-select, none)
+    -webkit-tap-highlight-color: transparent
+    text-align: center
+    padding: 24px 0
+
+    .rv-prev,
+    .rv-next
+      position: absolute
+      width: 24px
+      height: 24px
+      bottom: 24px
+      background: #555
+      +border-radius(50%)
+
+      &.disabled
+        pointer-events: none
+        +opacity(0.25)
+
+    .rv-prev
+      left: 12px
+
+    .rv-next
+      right: 12px
+
+    .rv-page
+      width: 12px
+      height: 12px
+      background: #555
+      +transition(background 300ms)
+      +inline-block()
+
+      &:first-child
+        +border-left-radius(50%)
+
+      &:last-child
+        +border-right-radius(50%)
+
+      &.active
+        background: #45C1ED
+
+    &.clickable .rv-page:hover
+      position: relative
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+      z-index: 1

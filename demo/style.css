@@ -1,0 +1,165 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #fff;
+  background-color: #22b573;
+}
+
+h1 {
+  line-height: 1;
+  font-size: 20px;
+}
+
+p {
+  margin: 8px 0 16px;
+}
+
+a {
+  color: inherit;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+code {
+  font-family: monospace;
+  background-color: #22b573;
+  padding: 2px 4px;
+  margin: 0 2px;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+}
+
+.container {
+  padding: 16px;
+  max-width: 680px;
+  margin: auto;
+}
+
+.revolver-setup input[type="submit"] {
+  width: 100%;
+  margin: 0;
+  color: white;
+  background-color: #22b573;
+  border: 1px solid #1a8a58;
+  font: inherit;
+  padding: 8px 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.revolver-setup .option {
+  position: relative;
+  margin-bottom: 8px;
+  overflow: hidden;
+  *zoom: 1;
+}
+
+.revolver-setup .option .checkbox,
+.revolver-setup .option label,
+.revolver-setup .option input[type="text"] {
+  height: 22px;
+  line-height: 22px;
+  padding: 8px;
+  font: inherit;
+  float: left;
+  margin: 0;
+  border: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.revolver-setup .option .checkbox,
+.revolver-setup .option input[type="text"] {
+  position: absolute;
+  background-color: white;
+  left: 135px;
+  width: 100%;
+}
+
+.revolver-setup .option input:focus {
+  outline: none;
+  background-color: #B4F1D6;
+}
+
+.revolver-setup .option .placeholder {
+  color: #aaaaaa;
+  margin-left: 8px;
+}
+
+.revolver-setup .option label {
+  width: 118px;
+  background-color: rgba(0,0,0,0.2);
+  text-align: right;
+}
+
+.revolver-setup .option p {
+  clear: both;
+  margin: 0;
+  padding: 8px;
+  background-color: rgba(0,0,0,0.1);
+  font-size: 13px;
+}
+
+.revolver-demo {
+  width: auto;
+  background-color: #333333;
+  -webkit-box-shadow: inset 0 0 4px black;
+  -moz-box-shadow: inset 0 0 4px black;
+  box-shadow: inset 0 0 4px black;
+}
+
+.square {
+  width: 100%;
+  height: 200px;
+  position: relative;
+}
+
+.square .square-inner {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  line-height: 180px;
+  font-size: 21px;
+  text-align: center;
+  color: #333;
+  background-color: #eeeeee;
+}
+
+.square.odd .square-inner {
+  background-color: #dddddd;
+}

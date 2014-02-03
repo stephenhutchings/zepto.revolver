@@ -1,0 +1,56 @@
+doctype html
+html
+  head
+    title #{config.name} | #{config.description}
+    meta(name="viewport",
+         content="width=device-width, initial-scale=1, user-scalable=no")
+    link(rel="stylesheet", href="/build/zepto.revolver.css")
+    link(rel="stylesheet", href="style.css")
+  body
+    .revolver-demo
+
+      - var traits = [config.name,"Responsive","Configurable","Touch-enabled","Draggable","Flexible","Extendable","Custom Breakpoints","Plug and play"]
+
+      each trait, i in traits
+        .square(class=i % 2 == 0 ? "odd" : "")
+          .square-inner= trait
+
+    .container
+      .inner
+
+
+        h1 #{config.name}
+
+        p #{config.description}
+
+        p
+          | Revolver is responsive and you can define custom breakpoints. It responds to touch and can be dragged this way and that. It's set up with sane defaults, but of course, these can be overriden. It fires events when things happen and exposes public methods to put you in control. It also uses hardware acceleration for transitions (if they're available), making it a great choice for mobile or devices with limited performance resources.
+
+        p
+          | Revolver is compatible with jQuery and Zepto, but requires Zepto's data module for compatability.
+
+
+        .revolver-setup
+          p Give it a shot
+
+          form
+            include partials/draggingMS
+            include partials/controlsMS
+            include partials/autoplayMS
+            include partials/returnToStart
+            include partials/returnToStartMS
+            include partials/stopOnHover
+            include partials/navigation
+
+      footer
+        | #{config.name} v#{config.version}
+        br
+        | Made by #{config.author}
+        br
+        a(href=config.repository.url) View on Github
+
+    script(src="jquery-1.10.2.min.js")
+    script(src="zepto-1.1.2.min.js")
+    script(src="zepto-1.1.2.data.js")
+    script(src="/build/zepto.revolver.js?v=#{config.version}")
+    script(src="page.js")
