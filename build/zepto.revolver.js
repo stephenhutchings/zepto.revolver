@@ -54,7 +54,7 @@
       this.items = this.$el.find(".rv-item");
       this.wrapper = this.$el.find(".rv-wrapper");
       this.style = this.wrapper.get(0).style;
-      this.style["display"] = "block";
+      this.style.display = "block";
       this.bindMoveEvents();
       this.bindCustomEvents();
       this.bindStopOnHover();
@@ -108,7 +108,7 @@
             clearInterval(_this.autoplay);
           }
           clearTimeout(_this.resizeDelay);
-          return _this.resizeDelay = setTimeout(function() {
+          _this.resizeDelay = setTimeout(function() {
             _this.refreshPagination();
             _this.updateVars();
             return delete _this.resizeDelay;
@@ -119,13 +119,13 @@
     updatePosition: function() {
       this.transition(0);
       this.translate(0);
-      return this.currentSlide = 0;
+      this.currentSlide = 0;
     },
     resetAll: function() {
       var _i, _ref, _results;
       this.itemWidth = Math.round(this.$el.width() / this.opts.items);
-      this.style["width"] = "" + (this.items.size() * this.itemWidth * 2) + "px";
-      this.style["left"] = 0;
+      this.style.width = "" + (this.items.size() * this.itemWidth * 2) + "px";
+      this.style.left = 0;
       this.items.each((function(_this) {
         return function(i, el) {
           return $(el).css({
@@ -135,7 +135,7 @@
       })(this));
       this.lastSlide = this.totalItems - this.opts.items;
       this.maxPixels = -((this.totalItems * this.itemWidth) - this.opts.items * this.itemWidth);
-      return this.positions = $.map((function() {
+      this.positions = $.map((function() {
         _results = [];
         for (var _i = 0, _ref = this.totalItems; 0 <= _ref ? _i < _ref : _i > _ref; 0 <= _ref ? _i++ : _i--){ _results.push(_i); }
         return _results;
@@ -245,18 +245,12 @@
       }
     },
     next: function(speed) {
-      if (speed == null) {
-        speed = this.opts.controlsMS;
-      }
       this.currentSlide += this.opts.items;
-      return this.goTo(this.currentSlide, speed);
+      return this.goTo(this.currentSlide, speed || this.opts.controlsMS);
     },
     prev: function(speed) {
-      if (speed == null) {
-        speed = this.opts.controlsMS;
-      }
       this.currentSlide -= this.opts.items;
-      return this.goTo(this.currentSlide, speed);
+      return this.goTo(this.currentSlide, speed || this.opts.controlsMS);
     },
     goTo: function(position, speed) {
       this.currentSlide = Math.max(Math.min(position, this.lastSlide), 0);
@@ -265,7 +259,7 @@
         this.transition(speed);
         setTimeout(((function(_this) {
           return function() {
-            return _this.isCss3Finish = true;
+            _this.isCss3Finish = true;
           };
         })(this)), speed);
         this.translate(this.positions[this.currentSlide]);
@@ -288,34 +282,36 @@
     },
     play: function() {
       clearInterval(this.autoplay);
-      return this.autoplay = setInterval((function(_this) {
-        return function() {
-          if (_this.currentSlide < _this.lastSlide && _this.playDirection === "next") {
-            return _this.next(_this.opts.controlsMS);
-          } else if (_this.currentSlide === _this.lastSlide) {
-            if (_this.opts.returnToStart) {
-              return _this.goTo(0, _this.opts.returnToStartMS);
-            } else {
-              _this.playDirection = "prev";
+      if (this.opts.autoplayMS > 0) {
+        this.autoplay = setInterval((function(_this) {
+          return function() {
+            if (_this.currentSlide < _this.lastSlide && _this.playDirection === "next") {
+              return _this.next(_this.opts.controlsMS);
+            } else if (_this.currentSlide === _this.lastSlide) {
+              if (_this.opts.returnToStart) {
+                return _this.goTo(0, _this.opts.returnToStartMS);
+              } else {
+                _this.playDirection = "prev";
+                return _this.prev(_this.opts.controlsMS);
+              }
+            } else if (_this.playDirection === "prev" && _this.currentSlide > 0) {
               return _this.prev(_this.opts.controlsMS);
+            } else if (_this.playDirection === "prev" && _this.currentSlide === 0) {
+              _this.playDirection = "next";
+              return _this.next(_this.opts.controlsMS);
             }
-          } else if (_this.playDirection === "prev" && _this.currentSlide > 0) {
-            return _this.prev(_this.opts.controlsMS);
-          } else if (_this.playDirection === "prev" && _this.currentSlide === 0) {
-            _this.playDirection = "next";
-            return _this.next(_this.opts.controlsMS);
-          }
-        };
-      })(this), this.opts.autoplayMS);
+          };
+        })(this), this.opts.autoplayMS);
+      }
     },
     transition: function(speed) {
-      return this.style[prefix("transition")] = "all " + speed + "ms ease";
+      this.style[prefix("transition")] = "all " + speed + "ms ease";
     },
     translate: function(pixels) {
       if (this.supportTransform) {
-        return this.style[prefix("transform")] = "translate3d(" + pixels + "px, 0px, 0px)";
+        this.style[prefix("transform")] = "translate3d(" + pixels + "px, 0px, 0px)";
       } else {
-        return this.style["left"] = "" + pixels + "px";
+        this.style.left = "" + pixels + "px";
       }
     },
     css2slide: function(pixels, speed) {
@@ -326,7 +322,7 @@
         duration: speed || this.opts.draggingMS({
           complete: (function(_this) {
             return function() {
-              return _this.isCssFinish = true;
+              _this.isCssFinish = true;
             };
           })(this)
         })
@@ -359,13 +355,13 @@
           horizontal = false;
           if (isTouch) {
             offsetX = e.originalEvent.touches[0].pageX - wrapperPosition.left;
-            return offsetY = e.originalEvent.touches[0].pageY - wrapperPosition.top;
+            offsetY = e.originalEvent.touches[0].pageY - wrapperPosition.top;
           } else {
             _this.wrapper.addClass("grabbing");
             offsetX = e.pageX - wrapperPosition.left;
             offsetY = e.pageY - wrapperPosition.top;
             $(document).on("mousemove.revolver", move);
-            return $(document).on("mouseup.revolver", end);
+            $(document).on("mouseup.revolver", end);
           }
         };
       })(this);
@@ -441,7 +437,8 @@
       return _results;
     },
     moveDirection: function() {
-      return this.playDirection = this.newRelativeX > 0 ? "next" : "prev";
+      this.playDirection = this.newRelativeX > 0 ? "next" : "prev";
+      return this.playDirection;
     },
     bindCustomEvents: function() {
       return this.$el.on("next.revolver", (function(_this) {

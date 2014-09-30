@@ -90,7 +90,7 @@
       # on this element. We can set its display now that we've wrapped
       # its contents.
       @style = @wrapper.get(0).style
-      @style["display"] = "block"
+      @style.display = "block"
 
       # Event binding
       @bindMoveEvents()
@@ -145,18 +145,22 @@
           delete @resizeDelay
         , 200)
 
+        return
+
     updatePosition: ->
       @transition 0
       @translate 0
       @currentSlide = 0
+
+      return
 
     resetAll: ->
       # Rest item width
       @itemWidth = Math.round(@$el.width() / @opts.items)
 
       # Rest wrapper css
-      @style["width"] = "#{@items.size() * @itemWidth * 2}px"
-      @style["left"] = 0
+      @style.width = "#{@items.size() * @itemWidth * 2}px"
+      @style.left = 0
 
       # Reset item css
       @items.each (i, el) =>
@@ -170,6 +174,8 @@
 
       # Reset position array
       @positions = $.map [0...@totalItems], (el) => -@itemWidth * el
+
+      return
 
     setupControls: ->
       if @opts.navigation or @opts.pagination
@@ -248,13 +254,13 @@
       @rvControls.off "rvControls"
       @rvControls.remove() if @rvControls
 
-    next: (speed = @opts.controlsMS) ->
+    next: (speed) ->
       @currentSlide += @opts.items
-      @goTo @currentSlide, speed
+      @goTo @currentSlide, speed or @opts.controlsMS
 
-    prev: (speed = @opts.controlsMS) ->
+    prev: (speed) ->
       @currentSlide -= @opts.items
-      @goTo @currentSlide, speed
+      @goTo @currentSlide, speed or @opts.controlsMS
 
     goTo: (position, speed) ->
       # Limit position to min and max
@@ -266,6 +272,7 @@
         @transition(speed)
         setTimeout (=>
           @isCss3Finish = true
+          return
         ), speed
 
         @translate @positions[@currentSlide]
@@ -297,16 +304,22 @@
         else if @playDirection is "prev" and @currentSlide is 0
           @playDirection = "next"
           @next @opts.controlsMS
-      , @opts.autoplayMS)
+      , @opts.autoplayMS) if @opts.autoplayMS > 0
+
+      return
 
     transition: (speed) ->
       @style[prefix "transition"] = "all #{speed}ms ease"
+
+      return
 
     translate: (pixels) ->
       if @supportTransform
         @style[prefix "transform"] = "translate3d(#{pixels}px, 0px, 0px)"
       else
-        @style["left"] = "#{pixels}px"
+        @style.left = "#{pixels}px"
+
+      return
 
     css2slide: (pixels, speed) ->
       @isCssFinish = false
@@ -315,6 +328,7 @@
       , duration: speed or @opts.draggingMS
         complete: =>
           @isCssFinish = true
+          return
 
     bindMoveEvents: (check) ->
       offsetX = 0
@@ -353,6 +367,8 @@
           offsetY = e.pageY - wrapperPosition.top
           $(document).on "mousemove.revolver", move
           $(document).on "mouseup.revolver", end
+
+        return
 
       move = (e) =>
         return if vertical
@@ -416,7 +432,8 @@
           @currentSlide = if @moveDirection() is "next" then i else i + 1
 
     moveDirection: ->
-      return @playDirection = if @newRelativeX > 0 then "next" else "prev"
+      @playDirection = if @newRelativeX > 0 then "next" else "prev"
+      return @playDirection
 
     bindCustomEvents: ->
       @$el
